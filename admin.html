@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Kshetra Spaces Portals</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .admin-container {
+      max-inline-size: 100%;
+      margin-inline: auto;
+      padding: var(--space-md) clamp(1rem, 5vw, 3rem);
+      margin-block-start: 80px;
+    }
+    
+    .admin-card {
+      background-color: var(--bg-secondary);
+      border: var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      margin-block-end: 2rem;
+    }
+    
+    .admin-tabs {
+      display: flex;
+      gap: 1rem;
+      border-bottom: var(--border-subtle);
+      margin-block-end: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      min-block-size: auto;
+      min-inline-size: auto;
+    }
+    
+    .admin-tab-btn:hover {
+      color: #ffffff;
+    }
+    
+    .admin-tab-btn.active {
+      color: var(--gold-primary);
+      border-bottom-color: var(--gold-primary);
+    }
+    
+    .admin-panel {
+      display: none;
+    }
+    
+    .admin-panel.active {
+      display: block;
+    }
+    
+    /* Login styling */
+    .login-container {
+      max-inline-size: 450px;
+      margin-inline: auto;
+      margin-block-start: 10dvb;
+    }
+    
+
+    
+    .badge-lead {
+      background-color: var(--gold-light);
+      border: var(--border-gold);
+      color: var(--gold-primary);
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+    }
+    
+    /* Project items layout */
+    .project-edit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .project-edit-card {
+      background-color: var(--bg-tertiary);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      position: relative;
+    }
+    
+    .delete-btn-corner {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      border-radius: var(--radius-sm);
+      min-block-size: auto;
+      min-inline-size: auto;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+    .delete-btn-corner:hover {
+      background: #ef4444;
+      color: #ffffff;
+    }
+    
+    /* Bento-grid Metrics Cards */
+    .leads-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-block-end: 2rem;
+    }
+    
+    .metric-card {
+      background-color: var(--bg-tertiary);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .metric-card:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+    }
+    
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+    
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+    }
+    
+    .metric-card.gold-border {
+      border-left: 4px solid var(--gold-primary);
+    }
+    .metric-card.purple-border {
+      border-left: 4px solid #a855f7;
+    }
+    .metric-card.orange-border {
+      border-left: 4px solid #f97316;
+    }
+    .metric-card.green-border {
+      border-left: 4px solid #22c55e;
+    }
+    
+    /* Custom status dropdown select styling */
+    .status-select-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .status-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
+      padding: 0.35rem 1.75rem 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-block-size: auto;
+      min-inline-size: auto;
+      height: auto;
+      outline: none;
+    }
+    
+    .status-select.status-new {
+      background-color: var(--gold-light);
+      border-color: rgba(197, 168, 128, 0.4);
+      color: var(--gold-primary);
+    }
+    .status-select.status-contacted {
+      background-color: rgba(168, 85, 247, 0.15);
+      border-color: rgba(168, 85, 247, 0.4);
+      color: #c084fc;
+    }
+    .status-select.status-progress {
+      background-color: rgba(249, 115, 22, 0.15);
+      border-color: rgba(249, 115, 22, 0.4);
+      color: #fdba74;
+    }
+    .status-select.status-closed {
+      background-color: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: #86efac;
+    }
+    
+    .status-select-wrapper::after {
+      content: "";
+      position: absolute;
+      right: 0.65rem;
+      width: 0.45rem;
+      height: 0.45rem;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      pointer-events: none;
+      opacity: 0.8;
+    }
+    
+    .contact-link {
+      transition: color 0.2s ease;
+    }
+    .contact-link:hover {
+      color: var(--gold-primary) !important;
+    }
+    
+
+    
+    /* Leads Cards Grid Layout */
+    .leads-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.25rem;
+      margin-block-start: 1rem;
+    }
+    
+    .lead-detail-card {
+      background-color: var(--bg-secondary);
+      border: var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    
+    .lead-detail-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-md), var(--shadow-glow);
+    }
+    
+    .lead-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+    
+    .lead-card-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .lead-card-name {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    
+    .lead-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex-grow: 1;
+    }
+    
+    .lead-card-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .lead-card-message {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-top: 0.25rem;
+    }
+    
+    .lead-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: var(--border-subtle);
+      padding-top: 0.75rem;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        KSHETRA SPACES
+        <span>by Himabindu</span>
+      </a>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <button id="logout-btn" class="btn btn-outline" style="min-block-size: auto; min-inline-size: auto; padding: 0.5rem 1rem; display: none;">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    
+    <!-- 1. LOGIN INTERFACE -->
+    <div id="login-section" class="login-container">
+      <div class="admin-card">
+        <h2 style="text-align: center; margin-bottom: 1.5rem;" class="text-gold">Admin Authentication</h2>
+        <div id="login-error" style="color: #ef4444; text-align: center; margin-bottom: 1rem; font-size: 0.9rem; display: none;">Invalid credentials</div>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-user">Username</label>
+            <input type="text" id="login-user" required placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label for="login-pass">Password</label>
+            <input type="password" id="login-pass" required placeholder="Enter password">
+          </div>
+          <button type="submit" class="btn btn-gold" style="inline-size: 100%; margin-top: 1rem;">Log In</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. DASHBOARD INTERFACE (Auth Protected) -->
+    <div id="dashboard-section" style="display: none;">
+      
+      <!-- Tab Controls -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-tab="leads-panel">Leads Inbox</button>
+        <button class="admin-tab-btn" data-tab="hero-panel">Hero Banner</button>
+        <button class="admin-tab-btn" data-tab="projects-panel">Projects Editor</button>
+        <button class="admin-tab-btn" data-tab="specs-panel">Property Specs</button>
+      </div>
+
+      <!-- A. LEADS PANEL -->
+      <div id="leads-panel" class="admin-panel active">
+        <div class="admin-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <h2 class="text-gold" style="margin: 0;">Leads &amp; Inquiries</h2>
+            <button class="btn btn-gold" id="export-leads-btn" style="padding: 0.5rem 1rem; min-block-size: auto; min-inline-size: auto; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+              <svg class="svg-icon" style="width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export to Excel (CSV)
+            </button>
+          </div>
+          
+          <!-- Bento Grid Metrics Panel -->
+          <div class="leads-metrics-grid">
+            <div class="metric-card gold-border">
+              <span class="metric-label">New Leads</span>
+              <span class="metric-value" id="metric-new-count">0</span>
+            </div>
+            <div class="metric-card purple-border">
+              <span class="metric-label">Contacted</span>
+              <span class="metric-value" id="metric-contacted-count">0</span>
+            </div>
+            <div class="metric-card orange-border">
+              <span class="metric-label">In Progress</span>
+              <span class="metric-value" id="metric-progress-count">0</span>
+            </div>
+            <div class="metric-card green-border">
+              <span class="metric-label">Closed</span>
+              <span class="metric-value" id="metric-closed-count">0</span>
+            </div>
+          </div>
+          
+          <!-- Leads Cards Grid Container -->
+          <div id="leads-cards-container" class="leads-cards-grid">
+            <!-- Leads dynamic cards inject here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- B. HERO PANEL -->
+      <div id="hero-panel" class="admin-panel">
+        <div class="admin-card">
+          <h2 style="margin-bottom: 1.5rem;" class="text-gold">Modify Hero Banner</h2>
+          <form id="hero-form">
+            <div class="form-group">
+              <label for="hero-title-input">Banner Title</label>
+              <input type="text" id="hero-title-input" required>
+            </div>
+            <div class="form-group">
+              <label for="hero-subtitle-input">Banner Subtitle</label>
+              <textarea id="hero-subtitle-input" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="hero-bg-input">Background Image Path</label>
+              <input type="text" id="hero-bg-input" required>
+            </div>
+            <button type="submit" class="btn btn-gold">Save Hero Content</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- C. PROJECTS PANEL -->
+      <div id="projects-panel" class="admin-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2 class="text-gold">Modify Projects</h2>
+          <button class="btn btn-gold" id="add-project-btn" style="padding: 0.5rem 1rem; min-block-size: auto; min-inline-size: auto;">+ Add New Project</button>
+        </div>
+        
+        <div class="project-edit-grid" id="projects-edit-container">
+          <!-- Projects dynamic editors inject here -->
+        </div>
+        
+        <div style="margin-top: 2rem;">
+          <button class="btn btn-gold" id="save-projects-btn">Save All Projects Changes</button>
+        </div>
+      </div>
+
+      <!-- D. SPECS PANEL -->
+      <div id="specs-panel" class="admin-panel">
+        <div class="admin-card">
+          <h2 style="margin-bottom: 1.5rem;" class="text-gold">Modify Property Specifications</h2>
+          <form id="specs-form">
+            <h3 style="font-size: 1.25rem; color: #ffffff; margin-bottom: 1rem; border-bottom: var(--border-subtle); padding-bottom: 0.5rem;">Villas Spotlight (Shamshabad / Woods)</h3>
+            <div class="form-group">
+              <label for="villa-title-input">Villa Title</label>
+              <input type="text" id="villa-title-input" required>
+            </div>
+            <div class="form-group">
+              <label for="villa-desc-input">Villa Description</label>
+              <textarea id="villa-desc-input" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="villa-specs-input">Villa Specs (comma-separated list)</label>
+              <input type="text" id="villa-specs-input" required>
+            </div>
+
+            <h3 style="font-size: 1.25rem; color: #ffffff; margin-top: 2rem; margin-bottom: 1rem; border-bottom: var(--border-subtle); padding-bottom: 0.5rem;">Apartment 1: Godrej Kukatpally</h3>
+            <div class="form-group">
+              <label for="apt-godrej-title">Apt 1 Title</label>
+              <input type="text" id="apt-godrej-title" required>
+            </div>
+            <div class="form-group">
+              <label for="apt-godrej-desc">Apt 1 Description</label>
+              <textarea id="apt-godrej-desc" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="apt-godrej-specs">Apt 1 Specs (comma-separated list)</label>
+              <input type="text" id="apt-godrej-specs" required>
+            </div>
+
+            <h3 style="font-size: 1.25rem; color: #ffffff; margin-top: 2rem; margin-bottom: 1rem; border-bottom: var(--border-subtle); padding-bottom: 0.5rem;">Apartment 2: Bricks Marvella</h3>
+            <div class="form-group">
+              <label for="apt-bricks-title">Apt 2 Title</label>
+              <input type="text" id="apt-bricks-title" required>
+            </div>
+            <div class="form-group">
+              <label for="apt-bricks-desc">Apt 2 Description</label>
+              <textarea id="apt-bricks-desc" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="apt-bricks-specs">Apt 2 Specs (comma-separated list)</label>
+              <input type="text" id="apt-bricks-specs" required>
+            </div>
+
+            <h3 style="font-size: 1.25rem; color: #ffffff; margin-top: 2rem; margin-bottom: 1rem; border-bottom: var(--border-subtle); padding-bottom: 0.5rem;">Plots Spotlight (Indresham / Plots)</h3>
+            <div class="form-group">
+              <label for="plot-title-input">Plots Title</label>
+              <input type="text" id="plot-title-input" required>
+            </div>
+            <div class="form-group">
+              <label for="plot-desc-input">Plots Description</label>
+              <textarea id="plot-desc-input" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="plot-specs-input">Plots Specs (comma-separated list)</label>
+              <input type="text" id="plot-specs-input" required>
+            </div>
+
+            <button type="submit" class="btn btn-gold" style="margin-top: 1.5rem;">Save Specifications Content</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script logic for Admin Actions -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginSection = document.getElementById('login-section');
+      const dashboardSection = document.getElementById('dashboard-section');
+      const logoutBtn = document.getElementById('logout-btn');
+      
+      const loginForm = document.getElementById('login-form');
+      const loginError = document.getElementById('login-error');
+      
+      let sessionToken = sessionStorage.getItem('admin_token') || '';
+      let cachedContent = null;
+      let projectsArray = [];
+      
+      let leadIdToDelete = null;
+      const deleteConfirmDialog = document.getElementById('delete-confirm-dialog');
+      const deleteConfirmInput = document.getElementById('delete-confirm-input');
+      const deleteConfirmCancelBtn = document.getElementById('delete-confirm-cancel-btn');
+      const deleteConfirmSubmitBtn = document.getElementById('delete-confirm-submit-btn');
+      
+      const addProjectDialog = document.getElementById('add-project-dialog');
+      const addProjectModalForm = document.getElementById('add-project-modal-form');
+      const addProjectDialogClose = document.getElementById('add-project-dialog-close');
+      const addProjectModalCancelBtn = document.getElementById('add-project-modal-cancel-btn');
+
+      // Check if session token exists on load
+      if (sessionToken) {
+        showDashboard();
+      }
+
+      // Handle login form submission
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('login-user').value;
+        const password = document.getElementById('login-pass').value;
+
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            sessionToken = data.token;
+            sessionStorage.setItem('admin_token', sessionToken);
+            showDashboard();
+            loginError.style.display = 'none';
+            loginForm.reset();
+          } else {
+            loginError.style.display = 'block';
+          }
+        } catch (err) {
+          console.error(err);
+          loginError.style.display = 'block';
+        }
+      });
+
+      // Handle logout
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          await fetch('/api/auth/logout', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${sessionToken}` }
+          });
+        } catch (e) {}
+        sessionToken = '';
+        sessionStorage.removeItem('admin_token');
+        showLogin();
+      });
+
+      function showDashboard() {
+        loginSection.style.display = 'none';
+        dashboardSection.style.display = 'block';
+        logoutBtn.style.display = 'inline-flex';
+        loadDashboardData();
+      }
+
+      function showLogin() {
+        loginSection.style.display = 'block';
+        dashboardSection.style.display = 'none';
+        logoutBtn.style.display = 'none';
+      }
+
+      // Dashboard tab switching
+      const tabBtns = document.querySelectorAll('.admin-tab-btn');
+      const panels = document.querySelectorAll('.admin-panel');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          
+          btn.classList.add('active');
+          const tabId = btn.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+
+      // Load data
+      async function loadDashboardData() {
+        try {
+          // 1. Load Dynamic Web Content
+          const contentRes = await fetch('/api/content');
+          if (contentRes.ok) {
+            const content = await contentRes.json();
+            cachedContent = content;
+            projectsArray = content.projects || [];
+            
+            // Populate Hero Form
+            document.getElementById('hero-title-input').value = content.hero.title || '';
+            document.getElementById('hero-subtitle-input').value = content.hero.subtitle || '';
+            document.getElementById('hero-bg-input').value = content.hero.bgImage || '';
+
+            // Populate Specs Form
+            document.getElementById('villa-title-input').value = content.villas_info.title || '';
+            document.getElementById('villa-desc-input').value = content.villas_info.description || '';
+            document.getElementById('villa-specs-input').value = (content.villas_info.specs || []).join(', ');
+
+            document.getElementById('apt-godrej-title').value = content.apartments_info.godrej.title || '';
+            document.getElementById('apt-godrej-desc').value = content.apartments_info.godrej.description || '';
+            document.getElementById('apt-godrej-specs').value = (content.apartments_info.godrej.specs || []).join(', ');
+
+            document.getElementById('apt-bricks-title').value = content.apartments_info.bricks.title || '';
+            document.getElementById('apt-bricks-desc').value = content.apartments_info.bricks.description || '';
+            document.getElementById('apt-bricks-specs').value = (content.apartments_info.bricks.specs || []).join(', ');
+
+            document.getElementById('plot-title-input').value = content.plots_info.title || '';
+            document.getElementById('plot-desc-input').value = content.plots_info.description || '';
+            document.getElementById('plot-specs-input').value = (content.plots_info.specs || []).join(', ');
+
+            // Populate Projects list
+            renderProjectsEditor();
+          }
+
+          // 2. Load Leads
+          loadLeadsList();
+
+        } catch (err) {
+          console.error('Error fetching dashboard data:', err);
+        }
+      }
+
+      // Helper to append a project card to the DOM
+      function appendProjectToEditor(proj, index) {
+        const container = document.getElementById('projects-edit-container');
+        const card = document.createElement('div');
+        card.className = 'project-edit-card';
+        card.innerHTML = `
+          <button class="delete-btn-corner" type="button" onclick="deleteCachedProject(${index})">Delete</button>
+          <div class="form-group">
+            <label>Project Title</label>
+            <input type="text" class="proj-title-val" value="${proj.title}" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select class="proj-cat-val">
+              <option value="villas" ${proj.category === 'villas' ? 'selected' : ''}>Villas</option>
+              <option value="apartments" ${proj.category === 'apartments' ? 'selected' : ''}>Apartments</option>
+              <option value="plots" ${proj.category === 'plots' ? 'selected' : ''}>Plots</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="proj-loc-val" value="${proj.location}" required>
+          </div>
+          <div class="form-group">
+            <label>BHK Configurations</label>
+            <input type="text" class="proj-config-val" value="${proj.config}" required>
+          </div>
+          <div class="form-group">
+            <label>Price Spec</label>
+            <input type="text" class="proj-price-val" value="${proj.price}" required>
+          </div>
+          <div class="form-group">
+            <label>Image Resource Path</label>
+            <input type="text" class="proj-img-val" value="${proj.image}" required>
+          </div>
+          <div class="form-group">
+            <label>Brief Description</label>
+            <textarea rows="3" class="proj-desc-val" required>${proj.description}</textarea>
+          </div>
+        `;
+        container.appendChild(card);
+      }
+
+      // Render Projects lists to forms
+      function renderProjectsEditor() {
+        const container = document.getElementById('projects-edit-container');
+        container.innerHTML = '';
+        projectsArray.forEach((proj, index) => {
+          appendProjectToEditor(proj, index);
+        });
+      }
+
+      // Add project helper (collects current inputs so user edits aren't lost on deletion)
+      window.deleteCachedProject = function(index) {
+        const cardsDom = document.querySelectorAll('.project-edit-card');
+        const updatedProjects = [];
+        cardsDom.forEach((card, idx) => {
+          if (idx === index) return;
+          const originalProj = projectsArray[idx];
+          updatedProjects.push({
+            id: originalProj ? originalProj.id : 'project-' + idx + '_' + Date.now(),
+            title: card.querySelector('.proj-title-val').value,
+            category: card.querySelector('.proj-cat-val').value,
+            location: card.querySelector('.proj-loc-val').value,
+            config: card.querySelector('.proj-config-val').value,
+            price: card.querySelector('.proj-price-val').value,
+            image: card.querySelector('.proj-img-val').value,
+            description: card.querySelector('.proj-desc-val').value
+          });
+        });
+        projectsArray = updatedProjects;
+        renderProjectsEditor();
+      };
+
+      // Click + Add Project -> Show Modal
+      document.getElementById('add-project-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        addProjectModalForm.reset();
+        addProjectDialog.showModal();
+      });
+
+      // Close modal actions
+      const closeAddProjectModal = () => {
+        addProjectDialog.close();
+      };
+      addProjectDialogClose.addEventListener('click', closeAddProjectModal);
+      addProjectModalCancelBtn.addEventListener('click', closeAddProjectModal);
+
+      // Handle Add Project Modal Form Submit
+      addProjectModalForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // 1. Gather all current project edits from the DOM so we don't lose them
+        const cardsDom = document.querySelectorAll('.project-edit-card');
+        const updatedProjects = [];
+        cardsDom.forEach((card, idx) => {
+          const originalProj = projectsArray[idx];
+          updatedProjects.push({
+            id: originalProj ? originalProj.id : 'project-' + idx + '_' + Date.now(),
+            title: card.querySelector('.proj-title-val').value,
+            category: card.querySelector('.proj-cat-val').value,
+            location: card.querySelector('.proj-loc-val').value,
+            config: card.querySelector('.proj-config-val').value,
+            price: card.querySelector('.proj-price-val').value,
+            image: card.querySelector('.proj-img-val').value,
+            description: card.querySelector('.proj-desc-val').value
+          });
+        });
+
+        // 2. Add the new project compiled from modal values
+        const newProj = {
+          id: 'project-' + Date.now(),
+          title: document.getElementById('new-proj-title').value,
+          category: document.getElementById('new-proj-cat').value,
+          location: document.getElementById('new-proj-loc').value,
+          config: document.getElementById('new-proj-config').value,
+          price: document.getElementById('new-proj-price').value,
+          image: document.getElementById('new-proj-img').value,
+          description: document.getElementById('new-proj-desc').value
+        };
+
+        updatedProjects.push(newProj);
+        projectsArray = updatedProjects;
+        
+        // 3. Render list and close
+        renderProjectsEditor();
+        addProjectDialog.close();
+      });
+
+      // CSV Exporter Click Listener
+      document.getElementById('export-leads-btn').addEventListener('click', () => {
+        if (!latestLeads || latestLeads.length === 0) {
+          alert('No leads data available to export.');
+          return;
+        }
+
+        // CSV Header
+        const headers = ['Date', 'Name', 'Phone', 'Email', 'Interest/Project', 'Form Type', 'Status', 'Message'];
+        
+        // CSV Rows
+        const rows = latestLeads.map(l => {
+          const dateStr = new Date(l.timestamp).toISOString();
+          const cleanName = (l.name || '').replace(/"/g, '""');
+          const cleanPhone = (l.phone || '').replace(/"/g, '""');
+          const cleanEmail = (l.email || '').replace(/"/g, '""');
+          const cleanInterest = (l.interest || l.project || 'N/A').replace(/"/g, '""');
+          const cleanType = (l.formType || '').replace(/"/g, '""');
+          const cleanStatus = (l.status || 'New').replace(/"/g, '""');
+          const cleanMsg = (l.message || '').replace(/"/g, '""');
+
+          return [
+            `"${dateStr}"`,
+            `"${cleanName}"`,
+            `"${cleanPhone}"`,
+            `"${cleanEmail}"`,
+            `"${cleanInterest}"`,
+            `"${cleanType}"`,
+            `"${cleanStatus}"`,
+            `"${cleanMsg}"`
+          ].join(',');
+        });
+
+        const csvContent = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `leads_export_${new Date().toISOString().slice(0, 10)}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // Submit Hero edits
+      document.getElementById('hero-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const hero = {
+          title: document.getElementById('hero-title-input').value,
+          subtitle: document.getElementById('hero-subtitle-input').value,
+          bgImage: document.getElementById('hero-bg-input').value
+        };
+
+        await submitContentUpdate({ hero });
+      });
+
+      // Submit Specs edits
+      document.getElementById('specs-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const villas_info = {
+          title: document.getElementById('villa-title-input').value,
+          description: document.getElementById('villa-desc-input').value,
+          specs: document.getElementById('villa-specs-input').value.split(',').map(s => s.trim()).filter(s => s)
+        };
+
+        const apartments_info = {
+          godrej: {
+            title: document.getElementById('apt-godrej-title').value,
+            description: document.getElementById('apt-godrej-desc').value,
+            specs: document.getElementById('apt-godrej-specs').value.split(',').map(s => s.trim()).filter(s => s)
+          },
+          bricks: {
+            title: document.getElementById('apt-bricks-title').value,
+            description: document.getElementById('apt-bricks-desc').value,
+            specs: document.getElementById('apt-bricks-specs').value.split(',').map(s => s.trim()).filter(s => s)
+          }
+        };
+
+        const plots_info = {
+          title: document.getElementById('plot-title-input').value,
+          description: document.getElementById('plot-desc-input').value,
+          specs: document.getElementById('plot-specs-input').value.split(',').map(s => s.trim()).filter(s => s)
+        };
+
+        await submitContentUpdate({ villas_info, apartments_info, plots_info });
+      });
+
+      // Save projects
+      document.getElementById('save-projects-btn').addEventListener('click', async () => {
+        const cardsDom = document.querySelectorAll('.project-edit-card');
+        const updatedProjects = [];
+
+        cardsDom.forEach((card, index) => {
+          const originalProj = projectsArray[index];
+          updatedProjects.push({
+            id: originalProj ? originalProj.id : 'project-' + index + '_' + Date.now(),
+            title: card.querySelector('.proj-title-val').value,
+            category: card.querySelector('.proj-cat-val').value,
+            location: card.querySelector('.proj-loc-val').value,
+            config: card.querySelector('.proj-config-val').value,
+            price: card.querySelector('.proj-price-val').value,
+            image: card.querySelector('.proj-img-val').value,
+            description: card.querySelector('.proj-desc-val').value
+          });
+        });
+
+        projectsArray = updatedProjects;
+        await submitContentUpdate({ projects: projectsArray });
+      });
+
+      async function submitContentUpdate(payload) {
+        try {
+          const res = await fetch('/api/admin/content', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${sessionToken}`
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+            alert('Content modifications saved successfully!');
+            loadDashboardData();
+          } else {
+            const data = await res.json();
+            alert(`Error: ${data.error || 'Failed to save modifications'}`);
+            if (res.status === 410) showLogin();
+          }
+        } catch (e) {
+          alert('Network error communicating updates to backend.');
+        }
+      }
+
+      // Load leads list
+      async function loadLeadsList() {
+        try {
+          const res = await fetch('/api/admin/leads', {
+            headers: { 'Authorization': `Bearer ${sessionToken}` }
+          });
+          
+          if (res.ok) {
+            const data = await res.json();
+            renderLeads(data.leads || []);
+          } else if (res.status === 410) {
+            showLogin();
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      let latestLeads = [];
+
+      function renderLeads(leads) {
+        latestLeads = leads;
+        const container = document.getElementById('leads-cards-container');
+        container.innerHTML = '';
+
+        if (leads.length === 0) {
+          container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-muted);">No inquiry leads logged in database.</div>`;
+          document.getElementById('metric-new-count').textContent = '0';
+          document.getElementById('metric-contacted-count').textContent = '0';
+          document.getElementById('metric-progress-count').textContent = '0';
+          document.getElementById('metric-closed-count').textContent = '0';
+          return;
+        }
+
+        // Sort descending by date
+        leads.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        // Dynamically compute and assign metrics
+        let countNew = 0;
+        let countContacted = 0;
+        let countProgress = 0;
+        let countClosed = 0;
+
+        leads.forEach(l => {
+          const s = l.status || 'New';
+          if (s === 'New') countNew++;
+          else if (s === 'Contacted') countContacted++;
+          else if (s === 'In Progress') countProgress++;
+          else if (s === 'Closed') countClosed++;
+        });
+
+        document.getElementById('metric-new-count').textContent = countNew;
+        document.getElementById('metric-contacted-count').textContent = countContacted;
+        document.getElementById('metric-progress-count').textContent = countProgress;
+        document.getElementById('metric-closed-count').textContent = countClosed;
+
+        leads.forEach(lead => {
+          const dateStr = new Date(lead.timestamp).toLocaleDateString(undefined, { 
+            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
+          });
+
+          const status = lead.status || 'New';
+          let statusClass = 'status-new';
+          if (status === 'Contacted') statusClass = 'status-contacted';
+          else if (status === 'In Progress') statusClass = 'status-progress';
+          else if (status === 'Closed') statusClass = 'status-closed';
+
+          const card = document.createElement('div');
+          card.className = 'lead-detail-card';
+          card.innerHTML = `
+            <div class="lead-card-header">
+              <div>
+                <div class="lead-card-name">${lead.name}</div>
+                <div style="font-size: 0.8rem; color: var(--gold-primary); margin-top: 0.25rem; font-weight: 500;">
+                  ${lead.formType}
+                </div>
+              </div>
+              <div class="lead-card-date">
+                <svg class="svg-icon" style="width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                ${dateStr}
+              </div>
+            </div>
+            
+            <div class="lead-card-body">
+              <div class="lead-card-contact-item">
+                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--text-muted); fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <a href="tel:${lead.phone}" style="color: var(--text-primary); font-weight: 500;" class="contact-link">${lead.phone}</a>
+              </div>
+              
+              ${lead.email ? `
+              <div class="lead-card-contact-item">
+                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--text-muted); fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <a href="mailto:${lead.email}" style="color: var(--text-secondary);" class="contact-link">${lead.email}</a>
+              </div>
+              ` : ''}
+
+              <div style="margin-top: 0.25rem;">
+                <span class="badge-lead">${lead.interest || lead.project || 'General Inquiry'}</span>
+                ${lead.visitDate ? `
+                <div style="font-size: 0.8rem; color: var(--gold-primary); margin-top: 0.35rem; display: inline-flex; align-items: center; gap: 4px; margin-left: 0.5rem; background: rgba(197, 168, 128, 0.08); padding: 0.15rem 0.5rem; border-radius: var(--radius-sm);">
+                  <svg class="svg-icon" style="width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  Visit: ${lead.visitDate}
+                </div>` : ''}
+              </div>
+
+              <div class="lead-card-message">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 600; text-transform: uppercase;">Requirements</div>
+                ${lead.message ? lead.message : '<span style="font-style: italic; color: var(--text-muted);">No extra requirements specified.</span>'}
+              </div>
+            </div>
+            
+            <div class="lead-card-footer">
+              <div class="status-select-wrapper">
+                <select class="status-select ${statusClass}" onchange="changeStatus('${lead.id}', this)">
+                  <option value="New" ${status === 'New' ? 'selected' : ''}>New</option>
+                  <option value="Contacted" ${status === 'Contacted' ? 'selected' : ''}>Contacted</option>
+                  <option value="In Progress" ${status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                  <option value="Closed" ${status === 'Closed' ? 'selected' : ''}>Closed</option>
+                </select>
+              </div>
+              <button class="btn btn-outline" style="min-block-size: auto; min-inline-size: auto; padding: 0.35rem 0.75rem; border-color: rgba(239, 68, 68, 0.3); color: #ef4444; font-size: 0.85rem;" onclick="deleteLead('${lead.id}')">Delete</button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      window.changeStatus = async function(id, selectEl) {
+        const val = selectEl.value;
+        selectEl.classList.remove('status-new', 'status-contacted', 'status-progress', 'status-closed');
+        if (val === 'New') selectEl.classList.add('status-new');
+        else if (val === 'Contacted') selectEl.classList.add('status-contacted');
+        else if (val === 'In Progress') selectEl.classList.add('status-progress');
+        else if (val === 'Closed') selectEl.classList.add('status-closed');
+
+        await updateLeadStatus(id, val);
+        loadDashboardData();
+      };
+
+      window.updateLeadStatus = async function(id, newStatus) {
+        try {
+          const res = await fetch(`/api/admin/leads/${id}/status`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${sessionToken}`
+            },
+            body: JSON.stringify({ status: newStatus })
+          });
+          if (!res.ok) {
+            const data = await res.json();
+            alert(`Error: ${data.error || 'Failed to update status'}`);
+            if (res.status === 410) showLogin();
+            loadLeadsList();
+          }
+        } catch (e) {
+          alert('Network communication error updating status.');
+          loadLeadsList();
+        }
+      };
+
+      window.deleteLead = function(id) {
+        leadIdToDelete = id;
+        deleteConfirmInput.value = '';
+        deleteConfirmSubmitBtn.disabled = true;
+        deleteConfirmSubmitBtn.style.opacity = '0.5';
+        deleteConfirmSubmitBtn.style.cursor = 'not-allowed';
+        deleteConfirmDialog.showModal();
+      };
+
+      deleteConfirmInput.addEventListener('input', () => {
+        if (deleteConfirmInput.value === 'DELETE') {
+          deleteConfirmSubmitBtn.disabled = false;
+          deleteConfirmSubmitBtn.style.opacity = '1';
+          deleteConfirmSubmitBtn.style.cursor = 'pointer';
+        } else {
+          deleteConfirmSubmitBtn.disabled = true;
+          deleteConfirmSubmitBtn.style.opacity = '0.5';
+          deleteConfirmSubmitBtn.style.cursor = 'not-allowed';
+        }
+      });
+
+      deleteConfirmCancelBtn.addEventListener('click', () => {
+        deleteConfirmDialog.close();
+        leadIdToDelete = null;
+      });
+
+      deleteConfirmSubmitBtn.addEventListener('click', async () => {
+        if (deleteConfirmInput.value !== 'DELETE' || !leadIdToDelete) return;
+        
+        const id = leadIdToDelete;
+        deleteConfirmDialog.close();
+        leadIdToDelete = null;
+        
+        try {
+          const res = await fetch(`/api/admin/leads/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${sessionToken}` }
+          });
+          if (res.ok) {
+            loadLeadsList();
+          } else {
+            const data = await res.json();
+            alert(`Error: ${data.error || 'Failed to delete lead'}`);
+            if (res.status === 410) showLogin();
+          }
+        } catch (e) {
+          alert('Network communication error deleting lead.');
+        }
+      });
+    });
+  </script>
+
+  <!-- Delete Confirmation Modal Dialog -->
+  <dialog id="delete-confirm-dialog" style="max-inline-size: 450px; background-color: var(--bg-secondary); border: 1px solid #ef4444; border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-lg);">
+    <h3 style="color: #ef4444; font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 1rem;">Confirm Deletion</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+      This action cannot be undone. To confirm, please type <strong style="color: #ffffff; user-select: none;">DELETE</strong> in the box below.
+    </p>
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <input type="text" id="delete-confirm-input" placeholder="Type DELETE to confirm" style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;">
+    </div>
+    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+      <button id="delete-confirm-cancel-btn" class="btn btn-outline" style="min-block-size: auto; min-inline-size: auto; padding: 0.5rem 1.25rem; border-color: var(--border-gold); color: #ffffff;">Cancel</button>
+      <button id="delete-confirm-submit-btn" class="btn" style="min-block-size: auto; min-inline-size: auto; padding: 0.5rem 1.25rem; background-color: #ef4444; color: #ffffff; border: none; opacity: 0.5; cursor: not-allowed;" disabled>Delete</button>
+    </div>
+  </dialog>
+
+  <!-- Add Project Dialog Modal -->
+  <dialog id="add-project-dialog" style="max-inline-size: 550px; background-color: var(--bg-secondary); border: var(--border-gold); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-lg); inline-size: 90%;">
+    <div class="dialog-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <h3 class="text-gold" style="font-size: 1.25rem; margin: 0;">+ Add New Project</h3>
+      <button class="dialog-close" id="add-project-dialog-close" aria-label="Close dialog" style="background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; min-inline-size: auto; min-block-size: auto; padding: 0.5rem; cursor: pointer;">&times;</button>
+    </div>
+    <form id="add-project-modal-form">
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="new-proj-title" style="display: block; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Project Title</label>
+        <input type="text" id="new-proj-title" placeholder="e.g., Godrej Kukatpally" required style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;">
+      </div>
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="new-proj-cat" style="display: block; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Category</label>
+        <select id="new-proj-cat" style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;">
+          <option value="apartments">Apartments</option>
+          <option value="villas">Villas</option>
+          <option value="plots">Plots</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="new-proj-loc" style="display: block; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Location</label>
+        <input type="text" id="new-proj-loc" placeholder="e.g., Kukatpally, Hyderabad" required style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;">
+      </div>
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="new-proj-config" style="display: block; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">BHK Configurations / Specs</label>
+        <input type="text" id="new-proj-config" placeholder="e.g., 2, 3 & 4 BHK" required style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;">
+      </div>
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="new-proj-price" style="display: block; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Price Spec</label>
+        <input type="text" id="new-proj-price" placeholder="e.g., On Request or Rs. 1.2 Cr onwards" required style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;">
+      </div>
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="new-proj-img" style="display: block; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Image Resource Path</label>
+        <input type="text" id="new-proj-img" placeholder="e.g., public/images/project-godrej.png" required style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;">
+      </div>
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="new-proj-desc" style="display: block; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Brief Description</label>
+        <textarea id="new-proj-desc" rows="3" placeholder="Introduce project features..." required style="background-color: var(--bg-tertiary); border: var(--border-subtle); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); inline-size: 100%;"></textarea>
+      </div>
+      
+      <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+        <button type="button" id="add-project-modal-cancel-btn" class="btn btn-outline" style="min-block-size: auto; min-inline-size: auto; padding: 0.5rem 1.25rem; border-color: var(--border-gold); color: #ffffff;">Cancel</button>
+        <button type="submit" class="btn btn-gold" style="min-block-size: auto; min-inline-size: auto; padding: 0.5rem 1.25rem;">Add Project</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

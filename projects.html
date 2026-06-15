@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Featured Real Estate Projects Hyderabad | Kshetra Spaces</title>
+  <meta name="description" content="Explore luxury residential properties, villa projects, gated layouts, and HMDA plots in Hyderabad. Dynamic filters for villas, flats, and land plots.">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .filter-panel {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-block-end: var(--space-md);
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      background-color: var(--bg-secondary);
+      border: var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      padding: 0.5rem 1.5rem;
+      border-radius: var(--radius-full);
+      min-block-size: auto;
+      min-inline-size: auto;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    
+    .filter-btn:hover {
+      border-color: var(--gold-primary);
+      color: #ffffff;
+    }
+    
+    .filter-btn.active {
+      background-color: var(--gold-primary);
+      color: var(--bg-primary);
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-glow);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        KSHETRA SPACES
+        <span>by Himabindu</span>
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="projects.html" class="nav-link active">Projects</a>
+        <a href="villas.html" class="nav-link">Villas</a>
+        <a href="apartments.html" class="nav-link">Apartments</a>
+        <a href="plots.html" class="nav-link">Plots</a>
+        <a href="investments.html" class="nav-link">Investments</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Header -->
+    <section class="section-container mt-lg" aria-labelledby="proj-title">
+      <div style="text-align: center; max-inline-size: 800px; margin-inline: auto; margin-block-end: var(--space-md);" class="reveal">
+        <span class="text-gold" style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.15em;">Active Promotion Portfolio</span>
+        <h1 id="proj-title" class="section-title mt-sm" style="font-size: clamp(2rem, 4vw + 0.5rem, 3.5rem);">Featured Projects</h1>
+        <p class="section-subtitle">Verified premium properties selected by Himabindu based on build quality, developer trust, and appreciation metrics.</p>
+      </div>
+
+      <!-- Interactive Category Filter Panel -->
+      <div class="filter-panel reveal delay-1">
+        <button class="filter-btn active" data-filter="all">All Properties</button>
+        <button class="filter-btn" data-filter="villas">Villas</button>
+        <button class="filter-btn" data-filter="apartments">Luxury Apartments</button>
+        <button class="filter-btn" data-filter="plots">HMDA Plots</button>
+      </div>
+
+      <!-- Grid Portfolio -->
+      <div class="grid-layout mt-md" id="portfolio-grid">
+        
+        <!-- Card 1: Godrej Kukatpally -->
+        <div class="card-container project-card-item reveal delay-1" data-category="apartments">
+          <article class="premium-card">
+            <div class="card-image-wrapper">
+              <img src="public/images/project-godrej.png" alt="Godrej Kukatpally high-rise exterior" class="card-image" loading="lazy">
+              <span class="card-badge">Apartments</span>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-end: 4px;" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Kukatpally, Hyderabad
+                </span>
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-end: 4px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle></svg>
+                  2, 3, 4 BHK
+                </span>
+              </div>
+              <h3 class="card-title">Godrej Kukatpally</h3>
+              <p>Ultra-luxury sky suites with private decks, expansive sports fields, double-height lobbies, and smart home provisions.</p>
+              <div class="card-footer">
+                <span class="card-price">On Request</span>
+                <button class="btn btn-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem; min-block-size: auto; min-inline-size: auto;" commandfor="schedule-visit-dialog" command="show-modal">Request Price</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 2: Bricks Marvella -->
+        <div class="card-container project-card-item reveal delay-2" data-category="apartments">
+          <article class="premium-card">
+            <div class="card-image-wrapper">
+              <img src="public/images/project-bricks.png" alt="Bricks Marvella modern facade" class="card-image" loading="lazy">
+              <span class="card-badge">Apartments</span>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-end: 4px;" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Financial District, Hyd
+                </span>
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-end: 4px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle></svg>
+                  3 &amp; 4 BHK
+                </span>
+              </div>
+              <h3 class="card-title">Bricks Marvella</h3>
+              <p>A sophisticated high-rise community situated at the nexus of major IT corridors, offering optimal work-life balance integrations.</p>
+              <div class="card-footer">
+                <span class="card-price">On Request</span>
+                <button class="btn btn-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem; min-block-size: auto; min-inline-size: auto;" commandfor="schedule-visit-dialog" command="show-modal">Request Price</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 3: Stone Craft Woods -->
+        <div class="card-container project-card-item reveal delay-3" data-category="villas">
+          <article class="premium-card">
+            <div class="card-image-wrapper">
+              <img src="public/images/project-woods.png" alt="Stone Craft Woods luxury forest villa" class="card-image" loading="lazy">
+              <span class="card-badge">Villas</span>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-end: 4px;" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Shamshabad Corridors
+                </span>
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-end: 4px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle></svg>
+                  3, 4 &amp; 5 BHK
+                </span>
+              </div>
+              <h3 class="card-title">Stone Craft Woods</h3>
+              <p>Luxury meets sustainable design in these bespoke wooden and stone villas, framed by lush forests and organic farms.</p>
+              <div class="card-footer">
+                <span class="card-price">On Request</span>
+                <button class="btn btn-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem; min-block-size: auto; min-inline-size: auto;" commandfor="schedule-visit-dialog" command="show-modal">Request Price</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 4: Indresham Projects -->
+        <div class="card-container project-card-item reveal delay-4" data-category="plots">
+          <article class="premium-card">
+            <div class="card-image-wrapper">
+              <img src="public/images/project-indresham.png" alt="Indresham Projects premium layout entry" class="card-image" loading="lazy">
+              <span class="card-badge">Plots</span>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-end: 4px;" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Indresham, Hyderabad
+                </span>
+                <span style="display: inline-flex; align-items: center;">
+                  <svg class="svg-icon" style="width: 16px; height: 16px; color: var(--gold-primary); stroke-width: 2.5; margin-inline-end: 4px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  HMDA Approved
+                </span>
+              </div>
+              <h3 class="card-title">Indresham Projects</h3>
+              <p>A completely integrated and secured land development offering high-value returns and appreciation prospects.</p>
+              <div class="card-footer">
+                <span class="card-price">On Request</span>
+                <button class="btn btn-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem; min-block-size: auto; min-inline-size: auto;" commandfor="schedule-visit-dialog" command="show-modal">Request Price</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="logo">
+          KSHETRA SPACES
+          <span>by Himabindu</span>
+        </a>
+        <p style="margin-top: 1rem;">Premium real estate advisory focused on luxury homes, villa communities, investment properties, and HMDA-approved plots in Hyderabad.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Properties</h4>
+        <div class="footer-links">
+          <a href="villas.html" class="footer-link">Luxury Villas</a>
+          <a href="apartments.html" class="footer-link">Luxury Apartments</a>
+          <a href="plots.html" class="footer-link">HMDA Plots</a>
+          <a href="investments.html" class="footer-link">Investment Properties</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="about.html" class="footer-link">About Himabindu</a>
+          <a href="projects.html" class="footer-link">Featured Projects</a>
+          <a href="blog.html" class="footer-link">Blog &amp; Insights</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <p class="footer-info">
+          <svg class="svg-icon" style="width: 16px; height: 16px; margin-inline-end: 8px; color: var(--gold-primary);" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          +91 98493 84093
+        </p>
+        <p class="footer-info">
+          <svg class="svg-icon" style="width: 16px; height: 16px; margin-inline-end: 8px; color: var(--gold-primary);" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          +91 88854 80765
+        </p>
+        <p class="footer-info">
+          <svg class="svg-icon" style="width: 16px; height: 16px; margin-inline-end: 8px; color: var(--gold-primary);" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          kshetraspacesbyhimabindu@gmail.com
+        </p>
+        <p class="footer-info" style="margin-top: 0.5rem;">
+          <svg class="svg-icon" style="width: 16px; height: 16px; margin-inline-end: 8px; color: var(--gold-primary);" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          B-910, ASBL Lakeside Apartments, Khajaguda, Hyderabad
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kshetra Spaces by Himabindu. All rights reserved.</p>
+      <p>eXp Realty Global Associate | HRA Member</p>
+    </div>
+  </footer>
+
+  <!-- Floating Communication Widgets -->
+  <div class="floating-widget">
+    <a href="https://wa.me/919849384093?text=Hi%20Himabindu,%20I'm%20interested%20in%20your%20real%20estate%20advisory%20services." class="float-btn float-whatsapp pulse" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+      <svg class="float-icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.758.459 3.473 1.332 4.984l-1.417 5.176 5.299-1.39c1.458.795 3.094 1.213 4.774 1.214h.004c5.505 0 9.986-4.482 9.986-9.988 0-2.667-1.039-5.175-2.926-7.062-1.886-1.887-4.396-2.922-7.064-2.922zm0 1.662c2.224 0 4.315.867 5.889 2.441 1.574 1.574 2.441 3.666 2.441 5.885 0 4.59-3.731 8.322-8.324 8.322-1.478 0-2.929-.395-4.204-1.144l-.302-.18-3.123.819.833-3.042-.197-.314c-.819-1.303-1.253-2.814-1.253-4.361.001-4.588 3.733-8.321 8.323-8.321zm-2.036 3.197c-.221 0-.46.046-.66.197-.197.152-.77.752-.77 1.834s.789 2.128.899 2.278c.11.152 1.521 2.322 3.684 3.256.514.223.916.356 1.229.456.518.165.989.141 1.362.086.417-.061 1.278-.523 1.458-1.028.18-.505.18-.938.126-1.028-.054-.09-.197-.137-.417-.247-.221-.11-1.278-.631-1.477-.702-.197-.071-.341-.11-.486.11-.144.22-.558.702-.684.845-.126.143-.253.161-.473.051-.22-.11-.931-.343-1.773-1.094-.654-.584-1.096-1.305-1.224-1.526-.127-.22-.014-.34.097-.45.099-.099.221-.257.332-.386.11-.129.147-.22.221-.367.074-.147.037-.275-.018-.386-.056-.11-.486-1.171-.666-1.603-.176-.423-.37-.367-.505-.374-.131-.007-.282-.008-.433-.008z"/></svg>
+    </a>
+    <a href="tel:+919849384093" class="float-btn float-call pulse" aria-label="Call Himabindu">
+      <svg class="float-icon" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+    </a>
+  </div>
+
+  <!-- Shared Schedule Modal dialog -->
+  <dialog id="schedule-visit-dialog">
+    <div class="dialog-header">
+      <h3 class="text-gold">Schedule a Site Visit</h3>
+      <button class="dialog-close" commandfor="schedule-visit-dialog" command="close" aria-label="Close dialog">&times;</button>
+    </div>
+    <form>
+      <div class="form-group">
+        <label for="visit-name">Your Name</label>
+        <input type="text" id="visit-name" name="name" required placeholder="Enter your full name">
+      </div>
+      <div class="form-group">
+        <label for="visit-phone">Phone Number</label>
+        <input type="tel" id="visit-phone" name="phone" required pattern="[0-9]{10}" placeholder="Enter 10-digit mobile number">
+      </div>
+      <div class="form-group">
+        <label for="visit-project">Preferred Project</label>
+        <select id="visit-project" name="project" required>
+          <option value="" disabled selected>Select a project</option>
+          <option value="Godrej Kukatpally">Godrej Kukatpally (Apartments)</option>
+          <option value="Bricks Marvella">Bricks Marvella (Apartments)</option>
+          <option value="Stone Craft Woods">Stone Craft Woods (Villas)</option>
+          <option value="Indresham Projects">Indresham Projects (Plots)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="visit-date">Preferred Date</label>
+        <input type="date" id="visit-date" name="visitDate" required>
+      </div>
+      <button type="submit" class="btn btn-gold" style="inline-size: 100%; margin-top: 1rem;">Confirm Site Visit</button>
+    </form>
+  </dialog>
+
+  <!-- Core JavaScript -->
+  <script type="module" src="main.js"></script>
+  
+  <!-- Interactive Project Filters Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.project-card-item');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Update active class on buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          const filter = btn.getAttribute('data-filter');
+          
+          cards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

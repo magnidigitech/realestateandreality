@@ -1,0 +1,110 @@
+{
+  "hero": {
+    "title": "Discover Luxury Spaces Built on Trust & Transparency by Himabindu",
+    "subtitle": "Expert property guidance in Hyderabad for luxury villas, apartments, high-yield investment properties, and HMDA-approved plots.",
+    "bgImage": "public/images/hero-home.png"
+  },
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "Godrej Kukatpally",
+      "category": "apartments",
+      "location": "Kukatpally, Hyderabad",
+      "config": "2, 3, 4 BHK",
+      "price": "On Request",
+      "image": "public/images/project-godrej.png",
+      "description": "Ultra-luxury sky suites with private decks, expansive sports fields, double-height lobbies, and smart home provisions."
+    },
+    {
+      "id": "project-2",
+      "title": "Bricks Marvella",
+      "category": "apartments",
+      "location": "Financial District, Hyd",
+      "config": "3 & 4 BHK",
+      "price": "On Request",
+      "image": "public/images/project-bricks.png",
+      "description": "A sophisticated high-rise community situated at the nexus of major IT corridors, offering optimal work-life balance integrations."
+    },
+    {
+      "id": "project-3",
+      "title": "Stone Craft Woods",
+      "category": "villas",
+      "location": "Shamshabad Corridors",
+      "config": "3, 4 & 5 BHK",
+      "price": "On Request",
+      "image": "public/images/project-woods.png",
+      "description": "Luxury meets sustainable design in these bespoke wooden and stone villas, framed by lush forests and organic farms."
+    },
+    {
+      "id": "project-4",
+      "title": "Indresham Projects",
+      "category": "plots",
+      "location": "Indresham, Hyderabad",
+      "config": "HMDA Approved",
+      "price": "On Request",
+      "image": "public/images/project-indresham.png",
+      "description": "A completely integrated and secured land development offering high-value returns and appreciation prospects."
+    }
+  ],
+  "villas_info": {
+    "title": "Stone Craft Woods",
+    "description": "Stone Craft Woods is an exclusive eco-luxury villa development in the Shamshabad sector. Nestled within an expansive reserve of natural forestation, these villas blend organic building materials like stone and wood with ultra-modern smart-home infrastructure.",
+    "specs": [
+      "Sizes: 3500 - 6500 Sq.Ft.",
+      "BHK Types: 3",
+      "4 & 5 BHK",
+      "Amenities: Clubhouse",
+      "Pool",
+      "Theme: Forest-centric eco"
+    ]
+  },
+  "apartments_info": {
+    "godrej": {
+      "title": "Godrej Kukatpally",
+      "description": "This premium high-rise development represents a benchmark of luxury living in Kukatpally. Featuring state-of-the-art smart-home provisions, double-height balconies, and expansive visual landscaping, it offers a refined lifestyle for modern families.",
+      "specs": [
+        "Sizes: 1800 - 4200 Sq.Ft.",
+        "BHK: 2",
+        "3",
+        "4 & 5 BHK",
+        "Kukatpally Core",
+        "Price: On Request"
+      ]
+    },
+    "bricks": {
+      "title": "Bricks Marvella",
+      "description": "Situated in the heart of Hyderabad's Financial District, Bricks Marvella is designed for ultimate business-district connectivity. The project features elegant glass facades, visual pool decks, and customizable floor plans that prioritize space efficiency.",
+      "specs": [
+        "Sizes: 2200 - 3800 Sq.Ft.",
+        "BHK Types: 3 & 4 BHK",
+        "Financial District",
+        "Price: On Request"
+      ]
+    }
+  },
+  "plots_info": {
+    "title": "Indresham Projects",
+    "description": "Indresham Projects is a highly secure, gated layout featuring premium plots located along the rapidly growing Indresham corridor. With ready-to-construct zoning and immediate registration capability, this project is ideal for both immediate home construction and long-term capital appreciation.",
+    "specs": [
+      "Plot Sizes: 180-450 Sq.Yd",
+      "Security: 24/7 Gated Arch",
+      "Roads: 40' & 30' Blacktop",
+      "Water: Overhead Tank"
+    ]
+  },
+  "leads": [
+    {
+      "id": "lead_1780976293351_o7dh4",
+      "name": "Venkata Vivek Ghanta",
+      "phone": "8184974589",
+      "email": "ghantavenkatavivek@gmail.com",
+      "interest": "Apartments",
+      "project": "",
+      "visitDate": "",
+      "message": "adsdas",
+      "formType": "Contact/Advisory Form",
+      "status": "New",
+      "timestamp": "2026-06-09T03:38:13.351Z"
+    }
+  ]
+}

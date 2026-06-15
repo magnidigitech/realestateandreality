@@ -1,0 +1,24 @@
+{
+  "name": "kshetra-spaces",
+  "version": "1.0.0",
+  "description": "Premium Real Estate Advisory & Property Consulting website",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.13"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "vite": "^6.0.0"
+  }
+}
