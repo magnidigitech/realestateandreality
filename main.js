@@ -1,4 +1,4 @@
-// Main Javascript file for Kshetra Spaces
+// Main Javascript file for Realestate & Reality
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Navigation Active Link Tracker

@@ -1,10 +1,10 @@
-# KSHETRA SPACES BY HIMABINDU – MASTER BRAND SETUP DOCUMENT
+# REALESTATE & REALITY BY HIMABINDU – MASTER BRAND SETUP DOCUMENT
 
 ## Brand Information
 
 ### Brand Name
 
-Kshetra Spaces by Himabindu
+Realestate & Reality by Himabindu
 
 ### Business Category
 
@@ -12,7 +12,7 @@ Real Estate Advisory & Property Consulting
 
 ### Business Description
 
-Kshetra Spaces by Himabindu is a premium real estate advisory brand specializing in luxury residential properties, villas, investment-focused properties, and HMDA-approved plots in Hyderabad and surrounding growth corridors. The brand helps homebuyers, investors, NRIs, and high-net-worth individuals identify the best real estate opportunities through expert guidance, market insights, and personalized consultation.
+Realestate & Reality by Himabindu is a premium real estate advisory brand specializing in luxury residential properties, villas, investment-focused properties, and HMDA-approved plots in Hyderabad and surrounding growth corridors. The brand helps homebuyers, investors, NRIs, and high-net-worth individuals identify the best real estate opportunities through expert guidance, market insights, and personalized consultation.
 
 ---
 
@@ -285,4 +285,4 @@ Existing Google Business Profile Available.
 
 # Brand Goal
 
-To establish Kshetra Spaces by Himabindu as one of Hyderabad's most trusted premium real estate advisory brands for luxury homes, villas, investment properties, and HMDA-approved plots while generating consistent high-quality buyer and investor leads.
+To establish Realestate & Reality by Himabindu as one of Hyderabad's most trusted premium real estate advisory brands for luxury homes, villas, investment properties, and HMDA-approved plots while generating consistent high-quality buyer and investor leads.

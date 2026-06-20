@@ -129,7 +129,7 @@ async function dispatchEmail(leadInfo) {
   const mailTarget = process.env.NOTIFICATION_EMAIL || 'kshetraspacesbyhimabindu@gmail.com';
   
   const textBody = `
-=== KSHETRA SPACES - NEW INQUIRY ===
+=== REALESTATE & REALITY - NEW INQUIRY ===
 Form Type: ${leadInfo.formType || 'Advisory Inquiry'}
 Date/Time: ${leadInfo.timestamp}
 Name: ${leadInfo.name}
@@ -160,7 +160,7 @@ ${leadInfo.message || 'No extra requirements specified.'}
       });
 
       await transporter.sendMail({
-        from: `"Kshetra Spaces Portal" <${smtpUser}>`,
+        from: `"Realestate & Reality Portal" <${smtpUser}>`,
         to: mailTarget,
         subject: `New Lead: ${leadInfo.name} - ${leadInfo.interest || leadInfo.project || 'Inquiry'}`,
         text: textBody

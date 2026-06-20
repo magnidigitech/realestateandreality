@@ -1,4 +1,4 @@
--- Schema for Kshetra Spaces PostgreSQL Database
+-- Schema for Realestate & Reality PostgreSQL Database
 
 -- 1. Site Content Table (Key-Value style for flexible page sections)
 CREATE TABLE IF NOT EXISTS site_content (
