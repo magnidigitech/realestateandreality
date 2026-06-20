@@ -612,6 +612,49 @@
     </form>
   </dialog>
 
+  <!-- Welcome Lead Capture Modal Dialog -->
+  <dialog id="welcome-lead-dialog">
+    <div class="dialog-header">
+      <h3 class="text-gold">Exclusive Property Advisory</h3>
+      <button class="dialog-close" commandfor="welcome-lead-dialog" command="close"
+        aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="welcome-lead-form">
+      <p style="font-size: 0.9rem; margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.5; text-wrap: balance;">
+        Get early-bird pricing lists, HMDA layout maps, and priority site visit coordinates directly from Himabindu.
+      </p>
+      <div class="form-group">
+        <label for="welcome-name">Full Name</label>
+        <input type="text" id="welcome-name" name="name" required placeholder="Your full name">
+      </div>
+      <div class="form-group">
+        <label for="welcome-phone">Mobile Number</label>
+        <input type="tel" id="welcome-phone" name="phone" required pattern="[0-9]{10}"
+          placeholder="10-digit mobile number">
+      </div>
+      <div class="form-group">
+        <label for="welcome-email">Email Address</label>
+        <input type="email" id="welcome-email" name="email" required placeholder="yourname@example.com">
+      </div>
+      <div class="form-group">
+        <label for="welcome-interest">Interested In</label>
+        <select id="welcome-interest" name="interest" required>
+          <option value="" disabled selected>Select category of interest</option>
+          <option value="Villas">Luxury Villas (Shamshabad / Woods)</option>
+          <option value="Apartments">Luxury Apartments (Kukatpally / Financial District)</option>
+          <option value="Plots">HMDA Approved Plots (Indresham)</option>
+          <option value="Investments">High Yield NRI Assets</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="welcome-message">Requirements / Budget (Optional)</label>
+        <textarea id="welcome-message" name="message" rows="3"
+          placeholder="Specify location or configuration preferences..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold" style="inline-size: 100%; margin-top: 1rem;">Unlock Advisory Package</button>
+    </form>
+  </dialog>
+
   <!-- Core JavaScript -->
   <script type="module" src="main.js"></script>
 </body>

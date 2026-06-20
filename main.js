@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         interest: formData.get('interest') || '',
         project: formData.get('project') || '',
         visitDate: formData.get('visitDate') || '',
-        message: formData.get('message') || ''
+        message: formData.get('message') || '',
+        formType: form.id === 'welcome-lead-form' ? 'Welcome Popup Lead' : (formData.get('visitDate') ? 'Site Visit Request' : 'Contact/Advisory Form')
       };
       
       // Close parent dialog if the form was inside one
@@ -409,5 +410,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Execute Hydration
   hydratePageContent();
+
+  // 9. Welcome Lead Modal Trigger (opens once per session on home page)
+  if (page === 'index') {
+    const welcomeDialog = document.getElementById('welcome-lead-dialog');
+    if (welcomeDialog && !sessionStorage.getItem('welcome_dialog_shown')) {
+      setTimeout(() => {
+        welcomeDialog.showModal();
+        sessionStorage.setItem('welcome_dialog_shown', 'true');
+      }, 1500); // 1.5 second delay
+    }
+  }
 });
 

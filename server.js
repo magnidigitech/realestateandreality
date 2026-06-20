@@ -259,7 +259,7 @@ app.post('/api/leads', async (req, res) => {
 
   const id = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
   const timestamp = new Date().toISOString();
-  const formType = visitDate ? 'Site Visit Request' : 'Contact/Advisory Form';
+  const formType = req.body.formType || (visitDate ? 'Site Visit Request' : 'Contact/Advisory Form');
   const status = 'New';
 
   try {
