@@ -2,6 +2,28 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+  plugins: [
+    {
+      name: 'clean-urls',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.url) {
+            const url = new URL(req.url, 'http://localhost');
+            let pathname = url.pathname;
+            // Strip trailing slash if present
+            if (pathname.endsWith('/') && pathname.length > 1) {
+              pathname = pathname.slice(0, -1);
+            }
+            // Rewrite extensionless page requests to their matching html files
+            if (pathname !== '/' && !pathname.includes('.') && !pathname.startsWith('/api')) {
+              req.url = pathname + '.html' + url.search;
+            }
+          }
+          next();
+        });
+      }
+    }
+  ],
   server: {
     proxy: {
       '/api': {

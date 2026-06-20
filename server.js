@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
+import pool from './db.js';
 
 dotenv.config();
 
@@ -20,27 +21,95 @@ const activeSessions = new Set();
 app.use(cors());
 app.use(express.json());
 
-// Helper functions for reading/writing db.json
-const DB_FILE = path.join(__dirname, 'db.json');
 const EMAIL_LOG_FILE = path.join(__dirname, 'email-logs.txt');
 
-function readDb() {
+// Database auto-migration & seeding
+async function initializeDatabase() {
+  console.log('Initializing PostgreSQL database...');
+  const client = await pool.connect();
   try {
-    const data = fs.readFileSync(DB_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (err) {
-    console.error('Error reading database file, returning default schema:', err);
-    return { hero: {}, projects: [], villas_info: {}, apartments_info: {}, plots_info: {}, leads: [] };
-  }
-}
+    await client.query('BEGIN');
+    
+    // Create site_content table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS site_content (
+        key VARCHAR(100) PRIMARY KEY,
+        value JSONB NOT NULL
+      )
+    `);
 
-function writeDb(data) {
-  try {
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
-    return true;
+    // Create leads table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS leads (
+        id VARCHAR(100) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        phone VARCHAR(100) NOT NULL,
+        email VARCHAR(255),
+        interest VARCHAR(255),
+        project VARCHAR(255),
+        visit_date VARCHAR(100),
+        message TEXT,
+        form_type VARCHAR(255),
+        status VARCHAR(100) DEFAULT 'New',
+        timestamp VARCHAR(100) NOT NULL
+      )
+    `);
+
+    // Check if site_content is empty. If so, seed from db.json
+    const { rows } = await client.query('SELECT COUNT(*) FROM site_content');
+    if (parseInt(rows[0].count) === 0) {
+      console.log('Database is empty. Seeding from db.json...');
+      const dbPath = path.join(__dirname, 'db.json');
+      if (fs.existsSync(dbPath)) {
+        const fileContent = fs.readFileSync(dbPath, 'utf-8');
+        const dbJson = JSON.parse(fileContent);
+
+        const sections = ['hero', 'projects', 'villas_info', 'apartments_info', 'plots_info'];
+        for (const section of sections) {
+          if (dbJson[section]) {
+            await client.query(
+              'INSERT INTO site_content (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value',
+              [section, JSON.stringify(dbJson[section])]
+            );
+          }
+        }
+
+        if (dbJson.leads && Array.isArray(dbJson.leads)) {
+          for (const lead of dbJson.leads) {
+            await client.query(
+              `INSERT INTO leads (id, name, phone, email, interest, project, visit_date, message, form_type, status, timestamp)
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+               ON CONFLICT (id) DO NOTHING`,
+              [
+                lead.id,
+                lead.name,
+                lead.phone,
+                lead.email || '',
+                lead.interest || '',
+                lead.project || '',
+                lead.visitDate || '',
+                lead.message || '',
+                lead.formType || '',
+                lead.status || 'New',
+                lead.timestamp
+              ]
+            );
+          }
+        }
+        console.log('Database seeding completed successfully.');
+      } else {
+        console.warn('db.json not found for database seeding.');
+      }
+    } else {
+      console.log('Database tables verify OK (already initialized).');
+    }
+    
+    await client.query('COMMIT');
   } catch (err) {
-    console.error('Error writing to database file:', err);
-    return false;
+    await client.query('ROLLBACK');
+    console.error('Failed to initialize database:', err);
+  } finally {
+    client.release();
   }
 }
 
@@ -124,15 +193,25 @@ function authenticateAdmin(req, res, next) {
    ========================================================================== */
 
 // 1. Get dynamic website content
-app.get('/api/content', (req, res) => {
-  const db = readDb();
-  res.json({
-    hero: db.hero,
-    projects: db.projects,
-    villas_info: db.villas_info,
-    apartments_info: db.apartments_info,
-    plots_info: db.plots_info
-  });
+app.get('/api/content', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT key, value FROM site_content');
+    const content = {};
+    result.rows.forEach(row => {
+      content[row.key] = row.value;
+    });
+
+    res.json({
+      hero: content.hero || {},
+      projects: content.projects || [],
+      villas_info: content.villas_info || {},
+      apartments_info: content.apartments_info || {},
+      plots_info: content.plots_info || {}
+    });
+  } catch (err) {
+    console.error('Error reading content from database:', err);
+    res.status(500).json({ error: 'Failed to retrieve website content' });
+  }
 });
 
 // 2. Submit new lead
@@ -143,29 +222,30 @@ app.post('/api/leads', async (req, res) => {
     return res.status(400).json({ error: 'Name and phone number are required fields' });
   }
 
-  const db = readDb();
-  
-  const newLead = {
-    id: 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-    name,
-    phone,
-    email: email || '',
-    interest: interest || '',
-    project: project || '',
-    visitDate: visitDate || '',
-    message: message || '',
-    formType: visitDate ? 'Site Visit Request' : 'Contact/Advisory Form',
-    status: 'New',
-    timestamp: new Date().toISOString()
-  };
+  const id = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+  const timestamp = new Date().toISOString();
+  const formType = visitDate ? 'Site Visit Request' : 'Contact/Advisory Form';
+  const status = 'New';
 
-  db.leads.push(newLead);
-  writeDb(db);
+  try {
+    await pool.query(
+      `INSERT INTO leads (id, name, phone, email, interest, project, visit_date, message, form_type, status, timestamp)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+      [id, name, phone, email || '', interest || '', project || '', visitDate || '', message || '', formType, status, timestamp]
+    );
 
-  // Dispatch Email Notification
-  await dispatchEmail(newLead);
+    const leadInfo = {
+      id, name, phone, email, interest, project, visitDate, message, formType, status, timestamp
+    };
 
-  res.status(201).json({ success: true, message: 'Inquiry received successfully' });
+    // Dispatch Email Notification
+    await dispatchEmail(leadInfo);
+
+    res.status(201).json({ success: true, message: 'Inquiry received successfully' });
+  } catch (err) {
+    console.error('Error inserting lead into database:', err);
+    res.status(500).json({ error: 'Failed to record lead' });
+  }
 });
 
 // 3. Admin Login
@@ -194,72 +274,104 @@ app.post('/api/auth/logout', (req, res) => {
 });
 
 // 5. Get Leads list (Auth protected)
-app.get('/api/admin/leads', authenticateAdmin, (req, res) => {
-  const db = readDb();
-  res.json({ leads: db.leads });
+app.get('/api/admin/leads', authenticateAdmin, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM leads ORDER BY timestamp DESC');
+    const leads = result.rows.map(row => ({
+      id: row.id,
+      name: row.name,
+      phone: row.phone,
+      email: row.email,
+      interest: row.interest,
+      project: row.project,
+      visitDate: row.visit_date,
+      message: row.message,
+      formType: row.form_type,
+      status: row.status,
+      timestamp: row.timestamp
+    }));
+    res.json({ leads });
+  } catch (err) {
+    console.error('Error fetching leads:', err);
+    res.status(500).json({ error: 'Failed to retrieve leads list' });
+  }
 });
 
 // 6. Delete Lead (Auth protected)
-app.delete('/api/admin/leads/:id', authenticateAdmin, (req, res) => {
+app.delete('/api/admin/leads/:id', authenticateAdmin, async (req, res) => {
   const { id } = req.params;
-  const db = readDb();
-  const index = db.leads.findIndex(l => l.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ error: 'Lead not found' });
+  try {
+    const result = await pool.query('DELETE FROM leads WHERE id = $1', [id]);
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Lead not found' });
+    }
+    res.json({ success: true, message: 'Lead deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting lead:', err);
+    res.status(500).json({ error: 'Failed to delete lead' });
   }
-
-  db.leads.splice(index, 1);
-  writeDb(db);
-  res.json({ success: true, message: 'Lead deleted successfully' });
 });
 
 // 6.5. Update Lead Status (Auth protected)
-app.patch('/api/admin/leads/:id/status', authenticateAdmin, (req, res) => {
+app.patch('/api/admin/leads/:id/status', authenticateAdmin, async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  const db = readDb();
-  const lead = db.leads.find(l => l.id === id);
-
-  if (!lead) {
-    return res.status(404).json({ error: 'Lead not found' });
+  try {
+    const result = await pool.query('UPDATE leads SET status = $1 WHERE id = $2', [status || 'New', id]);
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Lead not found' });
+    }
+    res.json({ success: true, message: 'Lead status updated successfully' });
+  } catch (err) {
+    console.error('Error updating lead status:', err);
+    res.status(500).json({ error: 'Failed to update status' });
   }
-
-  lead.status = status || 'New';
-  writeDb(db);
-  res.json({ success: true, message: 'Lead status updated successfully' });
 });
 
 // 7. Edit Page Content / Portfolio (Auth protected)
-app.post('/api/admin/content', authenticateAdmin, (req, res) => {
+app.post('/api/admin/content', authenticateAdmin, async (req, res) => {
   const { hero, projects, villas_info, apartments_info, plots_info } = req.body;
-  const db = readDb();
-
-  if (hero) db.hero = hero;
-  if (projects) db.projects = projects;
-  if (villas_info) db.villas_info = villas_info;
-  if (apartments_info) db.apartments_info = apartments_info;
-  if (plots_info) db.plots_info = plots_info;
-
-  if (writeDb(db)) {
+  try {
+    await pool.query('BEGIN');
+    if (hero) {
+      await pool.query('INSERT INTO site_content (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value', ['hero', JSON.stringify(hero)]);
+    }
+    if (projects) {
+      await pool.query('INSERT INTO site_content (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value', ['projects', JSON.stringify(projects)]);
+    }
+    if (villas_info) {
+      await pool.query('INSERT INTO site_content (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value', ['villas_info', JSON.stringify(villas_info)]);
+    }
+    if (apartments_info) {
+      await pool.query('INSERT INTO site_content (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value', ['apartments_info', JSON.stringify(apartments_info)]);
+    }
+    if (plots_info) {
+      await pool.query('INSERT INTO site_content (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value', ['plots_info', JSON.stringify(plots_info)]);
+    }
+    await pool.query('COMMIT');
     res.json({ success: true, message: 'Content updated successfully' });
-  } else {
-    res.status(500).json({ error: 'Failed to write updates to database' });
+  } catch (err) {
+    await pool.query('ROLLBACK');
+    console.error('Error updating page content:', err);
+    res.status(500).json({ error: 'Failed to save page contents' });
   }
 });
 
 /* ==========================================================================
-   PRODUCTION SERVING
+   PRODUCTION SERVING (WITH CLEAN URL SUPPORT)
    ========================================================================== */
 const distPath = path.join(__dirname, 'dist');
 if (fs.existsSync(distPath)) {
-  app.use(express.static(distPath));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
-  });
+  // Serve static assets, allowing HTML files to be resolved without extensions (e.g. /about serves about.html)
+  app.use(express.static(distPath, { extensions: ['html'] }));
 }
 
-app.listen(PORT, () => {
-  console.log(`Express server running on http://localhost:${PORT}`);
-  console.log(`SMTP configured: ${process.env.SMTP_HOST ? 'YES' : 'NO (Using local fallback log files)'}`);
+// Database initialization followed by starting the web server
+initializeDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Express server running on http://localhost:${PORT}`);
+    console.log(`SMTP configured: ${process.env.SMTP_HOST ? 'YES' : 'NO (Using local fallback log files)'}`);
+  });
+}).catch(err => {
+  console.error('Database initialization failed, server did not start:', err);
 });

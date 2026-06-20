@@ -3,12 +3,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Navigation Active Link Tracker
   const currentPath = window.location.pathname;
-  const page = currentPath.split('/').pop() || 'index.html';
+  const normPath = currentPath.replace(/^\//, '').replace(/\.html$/, '');
+  const page = normPath || 'index';
   const navLinks = document.querySelectorAll('.nav-link');
   
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
-    if (href === page || (page === 'index.html' && href === '#') || (href === 'index.html' && page === '')) {
+    const normHref = href ? href.replace(/^\//, '').replace(/\.html$/, '') : '';
+    if (normHref === page || (page === 'index' && (normHref === '' || normHref === 'index' || normHref === '#'))) {
       link.classList.add('active');
     } else {
       link.classList.remove('active');
@@ -230,10 +232,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
       
       const currentPath = window.location.pathname;
-      const page = currentPath.split('/').pop() || 'index.html';
+      const normPath = currentPath.replace(/^\//, '').replace(/\.html$/, '');
+      const page = normPath || 'index';
       
       // A. Home Page Hydration
-      if (page === 'index.html' || page === '') {
+      if (page === 'index') {
         const heroTitle = document.querySelector('.hero-title');
         const heroDesc = document.querySelector('.hero-desc');
         const heroBanner = document.querySelector('.hero-banner');
@@ -251,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       // B. Projects Page Hydration
-      if (page === 'projects.html') {
+      if (page === 'projects') {
         const portfolioGrid = document.getElementById('portfolio-grid');
         if (portfolioGrid && data.projects) {
           renderProjectsGrid(portfolioGrid, data.projects, true);
@@ -260,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       // C. Villas Spotlight Hydration
-      if (page === 'villas.html') {
+      if (page === 'villas') {
         const titleEl = document.getElementById('villa-spotlight-title');
         const descEl = document.getElementById('villa-spotlight-desc');
         const specsEl = document.getElementById('villa-spotlight-specs');
@@ -273,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       // D. Apartments Spotlight Hydration
-      if (page === 'apartments.html') {
+      if (page === 'apartments') {
         // Godrej Spotlight
         const godrejTitle = document.getElementById('apt-godrej-title-el');
         const godrejDesc = document.getElementById('apt-godrej-desc-el');
@@ -304,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       // E. Plots Spotlight Hydration
-      if (page === 'plots.html') {
+      if (page === 'plots') {
         const titleEl = document.getElementById('plot-spotlight-title');
         const descEl = document.getElementById('plot-spotlight-desc');
         const specsEl = document.getElementById('plot-spotlight-specs');
