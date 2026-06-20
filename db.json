@@ -2,7 +2,7 @@
   "hero": {
     "title": "Discover Luxury Spaces Built on Trust & Transparency by Himabindu",
     "subtitle": "Expert property guidance in Hyderabad for luxury villas, apartments, high-yield investment properties, and HMDA-approved plots.",
-    "bgImage": "public/images/hero-home.png"
+    "bgImage": "/images/hero-home.png"
   },
   "projects": [
     {
@@ -12,7 +12,7 @@
       "location": "Kukatpally, Hyderabad",
       "config": "2, 3, 4 BHK",
       "price": "On Request",
-      "image": "public/images/project-godrej.png",
+      "image": "/images/project-godrej.png",
       "description": "Ultra-luxury sky suites with private decks, expansive sports fields, double-height lobbies, and smart home provisions."
     },
     {
@@ -22,7 +22,7 @@
       "location": "Financial District, Hyd",
       "config": "3 & 4 BHK",
       "price": "On Request",
-      "image": "public/images/project-bricks.png",
+      "image": "/images/project-bricks.png",
       "description": "A sophisticated high-rise community situated at the nexus of major IT corridors, offering optimal work-life balance integrations."
     },
     {
@@ -32,7 +32,7 @@
       "location": "Shamshabad Corridors",
       "config": "3, 4 & 5 BHK",
       "price": "On Request",
-      "image": "public/images/project-woods.png",
+      "image": "/images/project-woods.png",
       "description": "Luxury meets sustainable design in these bespoke wooden and stone villas, framed by lush forests and organic farms."
     },
     {
@@ -42,7 +42,7 @@
       "location": "Indresham, Hyderabad",
       "config": "HMDA Approved",
       "price": "On Request",
-      "image": "public/images/project-indresham.png",
+      "image": "/images/project-indresham.png",
       "description": "A completely integrated and secured land development offering high-value returns and appreciation prospects."
     }
   ],

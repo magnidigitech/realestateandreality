@@ -103,6 +103,17 @@ async function initializeDatabase() {
     } else {
       console.log('Database tables verify OK (already initialized).');
     }
+
+    // Clean up any historical "public/images/" paths in site_content database entries
+    const contentCheck = await client.query('SELECT key, value FROM site_content');
+    for (const row of contentCheck.rows) {
+      const originalStr = JSON.stringify(row.value);
+      if (originalStr.includes('public/images/')) {
+        const cleanedStr = originalStr.replace(/public\/images\//g, '/images/');
+        await client.query('UPDATE site_content SET value = $1 WHERE key = $2', [cleanedStr, row.key]);
+        console.log(`Rewrote legacy public/images/ paths in database content key: ${row.key}`);
+      }
+    }
     
     await client.query('COMMIT');
   } catch (err) {
@@ -192,6 +203,24 @@ function authenticateAdmin(req, res, next) {
    API ENDPOINTS
    ========================================================================== */
 
+// Helper to recursively normalize image paths from "public/images/" to "/images/"
+function cleanImgPath(val) {
+  if (typeof val === 'string') {
+    return val.replace(/public\/images\//g, '/images/');
+  }
+  if (Array.isArray(val)) {
+    return val.map(cleanImgPath);
+  }
+  if (val !== null && typeof val === 'object') {
+    const cleaned = {};
+    for (const key in val) {
+      cleaned[key] = cleanImgPath(val[key]);
+    }
+    return cleaned;
+  }
+  return val;
+}
+
 // 1. Get dynamic website content
 app.get('/api/content', async (req, res) => {
   try {
@@ -201,12 +230,18 @@ app.get('/api/content', async (req, res) => {
       content[row.key] = row.value;
     });
 
+    const cleanedHero = cleanImgPath(content.hero || {});
+    const cleanedProjects = cleanImgPath(content.projects || []);
+    const cleanedVillasInfo = cleanImgPath(content.villas_info || {});
+    const cleanedApartmentsInfo = cleanImgPath(content.apartments_info || {});
+    const cleanedPlotsInfo = cleanImgPath(content.plots_info || {});
+
     res.json({
-      hero: content.hero || {},
-      projects: content.projects || [],
-      villas_info: content.villas_info || {},
-      apartments_info: content.apartments_info || {},
-      plots_info: content.plots_info || {}
+      hero: cleanedHero,
+      projects: cleanedProjects,
+      villas_info: cleanedVillasInfo,
+      apartments_info: cleanedApartmentsInfo,
+      plots_info: cleanedPlotsInfo
     });
   } catch (err) {
     console.error('Error reading content from database:', err);
