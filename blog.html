@@ -14,6 +14,24 @@
       gap: 1rem;
       margin-block-end: var(--space-md);
     }
+    
+    #blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    
+    @media (min-width: 600px) {
+      #blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 969px) {
+      #blog-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
   </style>
 </head>
 <body>
@@ -62,10 +80,10 @@
       <div class="grid-layout mt-md" id="blog-grid">
         
         <!-- Post 1 -->
-        <article class="premium-card blog-post-card reveal delay-1" data-title="top 5 growth corridors hyderabad appreciation">
+        <article class="premium-card blog-post-card reveal delay-1" data-title="eoi otp real estate opportunity uncertainty emotional cost delay registration">
           <div class="card-image-wrapper">
-            <img src="public/images/hero-home.png" alt="Hyderabad growth corridor aerial view" class="card-image" loading="lazy">
-            <span class="card-badge">Market Analysis</span>
+            <img src="public/images/project-bricks.png" alt="Pre-launch luxury project rendering" class="card-image" loading="lazy">
+            <span class="card-badge">Market Advisory</span>
           </div>
           <div class="card-body">
             <div class="card-meta">
@@ -75,100 +93,16 @@
               </span>
               <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
                 <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--gold-primary);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                5 Min Read
-              </span>
-            </div>
-            <h3 class="card-title">Top 5 Growth Corridors in Hyderabad for 2026</h3>
-            <p>An in-depth evaluation of Shamshabad, Indresham, Patancheru, Kokapet, and Tellapur sectors. Discover infrastructure timelines and appreciate projections.</p>
-            <div class="card-footer">
-              <span style="color: var(--gold-primary); font-size: 0.9rem; display: inline-flex; align-items: center;">
-                Read Column
-                <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-start: 4px; color: var(--gold-primary);" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Post 2 -->
-        <article class="premium-card blog-post-card reveal delay-2" data-title="nri guide buy property india legally rules">
-          <div class="card-image-wrapper">
-            <img src="public/images/project-godrej.png" alt="NRI property investment papers" class="card-image" loading="lazy">
-            <span class="card-badge">NRI Advisory</span>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
-                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--gold-primary);" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                May 2026
-              </span>
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
-                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--gold-primary);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                8 Min Read
-              </span>
-            </div>
-            <h3 class="card-title">NRI Guide: How to Buy Property in India Legally</h3>
-            <p>Demystifying FEMA regulations, NRE/NRO banking paths, power of attorney setups, and property taxes for overseas Indian buyers.</p>
-            <div class="card-footer">
-              <span style="color: var(--gold-primary); font-size: 0.9rem; display: inline-flex; align-items: center;">
-                Read Column
-                <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-start: 4px; color: var(--gold-primary);" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Post 3 -->
-        <article class="premium-card blog-post-card reveal delay-3" data-title="complete checklist verifying hmda land plots verification">
-          <div class="card-image-wrapper">
-            <img src="public/images/project-indresham.png" alt="Land plots layouts paperwork" class="card-image" loading="lazy">
-            <span class="card-badge">Legal Guide</span>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
-                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--gold-primary);" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                April 2026
-              </span>
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
-                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--gold-primary);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 6 Min Read
               </span>
             </div>
-            <h3 class="card-title">A Complete Checklist for Verifying HMDA Land Plots</h3>
-            <p>Step-by-step checklist to search land records, verify layout permit letters on the HMDA portal, and check for physical infrastructure parameters.</p>
+            <h3 class="card-title">EOI and OTP in Real Estate: Opportunity, Uncertainty, and the Hidden Emotional Cost</h3>
+            <p>An essential analysis of pre-launch offers, Expression of Interest (EOI) payments, and how buyers, agents, and developers can navigate the emotional and financial uncertainty of registration delays.</p>
             <div class="card-footer">
-              <span style="color: var(--gold-primary); font-size: 0.9rem; display: inline-flex; align-items: center;">
+              <button class="btn btn-gold" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; min-block-size: auto; min-inline-size: auto; display: inline-flex; align-items: center; gap: 0.35rem;" commandfor="blog-dialog-1" command="show-modal">
                 Read Column
-                <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-start: 4px; color: var(--gold-primary);" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Post 4 -->
-        <article class="premium-card blog-post-card reveal delay-4" data-title="why gated villa communities outperforming apartments roi">
-          <div class="card-image-wrapper">
-            <img src="public/images/project-woods.png" alt="Luxury forest villa gating layout" class="card-image" loading="lazy">
-            <span class="card-badge">Asset Selection</span>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
-                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--gold-primary);" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                March 2026
-              </span>
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
-                <svg class="svg-icon" style="width: 14px; height: 14px; color: var(--gold-primary);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                5 Min Read
-              </span>
-            </div>
-            <h3 class="card-title">Why Gated Villas are Outperforming Apartments</h3>
-            <p>Analyzing land-to-building appreciation index and why families are prioritizing private gating layouts, eco-living, and space post-2025.</p>
-            <div class="card-footer">
-              <span style="color: var(--gold-primary); font-size: 0.9rem; display: inline-flex; align-items: center;">
-                Read Column
-                <svg class="svg-icon" style="width: 14px; height: 14px; margin-inline-start: 4px; color: var(--gold-primary);" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </span>
+                <svg class="svg-icon" style="width: 14px; height: 14px; color: currentColor;" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
             </div>
           </div>
         </article>
@@ -227,7 +161,7 @@
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Realestate &amp; Reality by Himabindu. All rights reserved.</p>
-      <p>eXp Realty Global Associate | HRA Member</p>
+      <p>eXp Realty Global Associate | HRA Member | FICCI FLO</p>
     </div>
   </footer>
 
@@ -274,6 +208,91 @@
     </form>
   </dialog>
 
+  <!-- Blog Post 1 Dialog -->
+  <dialog id="blog-dialog-1" style="max-inline-size: 800px; inline-size: 95%;">
+    <div class="dialog-header">
+      <h2 class="text-gold" style="font-size: 1.5rem; line-height: 1.3; font-family: var(--font-heading);">EOI and OTP in Real Estate: Opportunity, Uncertainty, and the Hidden Emotional Cost</h2>
+      <button class="dialog-close" commandfor="blog-dialog-1" command="close" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="dialog-content" style="max-height: 65vh; overflow-y: auto; padding-inline-end: 1rem; line-height: 1.7; color: var(--text-primary);">
+      <p style="margin-bottom: 1.25rem;">The real estate industry has evolved significantly over the last decade. New project launches, pre-launch offers, Expression of Interest (EOI) payments, and Offer to Purchase (OTP) arrangements have created opportunities for buyers to secure desirable properties before prices increase.</p>
+      
+      <p style="margin-bottom: 1.5rem;">While these mechanisms can benefit buyers, developers, and sales professionals, there is one aspect that often receives less attention: the emotional and financial uncertainty that can arise when registrations are delayed for years.</p>
+      
+      <h3 class="text-gold" style="font-size: 1.2rem; margin-block: 1.5rem 0.75rem; font-family: var(--font-heading);">The Promise of Early Entry</h3>
+      <p style="margin-bottom: 1.25rem;">EOI payments are designed to help buyers reserve a preferred unit before official launch or registration. In many cases, buyers gain access to better pricing, preferred inventory, and the potential for future appreciation.</p>
+      <p style="margin-bottom: 1.25rem;">From a developer's perspective, EOIs help gauge market demand and support project planning. For sales agents, they provide an opportunity to secure inventory for clients at attractive prices.</p>
+      <p style="margin-bottom: 1.5rem;">When projects progress according to schedule, everyone benefits. However, real estate does not always move according to plan.</p>
+      
+      <h3 class="text-gold" style="font-size: 1.2rem; margin-block: 1.5rem 0.75rem; font-family: var(--font-heading);">When Delays Turn Opportunity into Anxiety</h3>
+      <p style="margin-bottom: 1.25rem;">Recently, one of my clients entered a project with great enthusiasm. The location was excellent, the developer had a strong vision, and the future potential appeared promising.</p>
+      <p style="margin-bottom: 1.25rem;">The client paid the EOI and completed the OTP process, expecting the registration to follow within a reasonable timeframe. Instead, the journey stretched for nearly three years.</p>
+      <p style="margin-bottom: 1.25rem;">Throughout this period, there were repeated questions:</p>
+      <ul style="list-style-type: none; padding-inline-start: 1rem; margin-bottom: 1.25rem;">
+        <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <span style="color: var(--gold-primary); font-weight: bold;">&bull;</span>
+          <span>When will registration happen?</span>
+        </li>
+        <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <span style="color: var(--gold-primary); font-weight: bold;">&bull;</span>
+          <span>Will project approvals be completed?</span>
+        </li>
+        <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <span style="color: var(--gold-primary); font-weight: bold;">&bull;</span>
+          <span>Will pricing change?</span>
+        </li>
+        <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <span style="color: var(--gold-primary); font-weight: bold;">&bull;</span>
+          <span>Should alternative investments be considered?</span>
+        </li>
+        <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <span style="color: var(--gold-primary); font-weight: bold;">&bull;</span>
+          <span>Is the project still on track?</span>
+        </li>
+      </ul>
+      <p style="margin-bottom: 1.25rem;">Financial uncertainty was only one part of the challenge. The greater burden was emotional. What started as excitement gradually became concern. Concern evolved into frustration. Over time, the prolonged uncertainty affected peace of mind, decision-making, and even personal relationships.</p>
+      <p style="margin-bottom: 1.5rem;">Sleep became difficult. Conversations repeatedly returned to the same unresolved questions. The waiting period created stress not only for the buyer but also for the family.</p>
+      
+      <h3 class="text-gold" style="font-size: 1.2rem; margin-block: 1.5rem 0.75rem; font-family: var(--font-heading);">The Impact on Buyers, Agents, and Developers</h3>
+      <p style="margin-bottom: 1.25rem;">Many people assume delays affect only buyers. In reality, the consequences extend much further.</p>
+      <div style="margin-bottom: 1.5rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: var(--radius-md); border: var(--border-subtle);">
+          <strong style="color: #fff; display: block; margin-bottom: 0.5rem;">Buyers</strong>
+          <span style="font-size: 0.95rem; color: var(--text-secondary);">Buyers often postpone other financial decisions while waiting for clarity. They may delay purchasing another property, investing elsewhere, or making long-term plans.</span>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: var(--radius-md); border: var(--border-subtle);">
+          <strong style="color: #fff; display: block; margin-bottom: 0.5rem;">Agents</strong>
+          <span style="font-size: 0.95rem; color: var(--text-secondary);">Agents often find themselves in a difficult position. They are expected to provide answers even when project timelines remain uncertain. Maintaining client confidence during extended delays can become challenging.</span>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: var(--radius-md); border: var(--border-subtle);">
+          <strong style="color: #fff; display: block; margin-bottom: 0.5rem;">Developers</strong>
+          <span style="font-size: 0.95rem; color: var(--text-secondary);">Developers also face pressure. Delays can damage market perception, increase customer concerns, and create communication challenges even when the reasons are beyond their immediate control.</span>
+        </div>
+      </div>
+      
+      <h3 class="text-gold" style="font-size: 1.2rem; margin-block: 1.5rem 0.75rem; font-family: var(--font-heading);">Why Uncertainty Is More Difficult Than Delay</h3>
+      <p style="margin-bottom: 1.25rem;">An important lesson from this experience is that people can often tolerate delays when expectations are clear. What creates the greatest stress is uncertainty.</p>
+      <p style="margin-bottom: 1.25rem;">A six-month delay with transparent communication is usually easier to accept than an undefined timeline with limited visibility.</p>
+      <p style="margin-bottom: 1.5rem;">Uncertain agreements do not reduce anxiety. In many cases, they increase it because buyers cannot confidently plan their future. When timelines remain unclear, people naturally imagine worst-case scenarios.</p>
+      
+      <h3 class="text-gold" style="font-size: 1.2rem; margin-block: 1.5rem 0.75rem; font-family: var(--font-heading);">How Buyers Can Navigate EOI Opportunities More Safely</h3>
+      <p style="margin-bottom: 1.25rem;">EOIs remain a valuable tool and should not be avoided entirely. However, buyers should approach them with realistic expectations. Before committing:</p>
+      <ol style="padding-inline-start: 1.25rem; margin-bottom: 1.5rem; display: grid; gap: 0.75rem;">
+        <li><strong>Understand Project Approvals:</strong> Ask which approvals are already in place and which are still pending.</li>
+        <li><strong>Clarify Expected Registration Timelines:</strong> Request realistic timelines rather than optimistic estimates.</li>
+        <li><strong>Review Refund and Exit Clauses:</strong> Understand your options if delays extend beyond expectations.</li>
+        <li><strong>Assess Your Emotional Capacity:</strong> Ask yourself an important question: <em>"If registration takes two to three years longer than expected, will I still be comfortable with this decision?"</em></li>
+        <li><strong>Maintain Financial Flexibility:</strong> Avoid committing funds that may be urgently needed elsewhere.</li>
+      </ol>
+      
+      <h3 class="text-gold" style="font-size: 1.2rem; margin-block: 1.5rem 0.75rem; font-family: var(--font-heading);">A Balanced View</h3>
+      <p style="margin-bottom: 1.25rem;">EOIs are neither good nor bad. They are simply a mechanism that can create significant opportunities when projects move smoothly.</p>
+      <p style="margin-bottom: 1.25rem;">However, buyers should understand that the greatest risk is often not financial loss but prolonged uncertainty.</p>
+      <p style="margin-bottom: 1.25rem;">As real estate professionals, we have a responsibility to discuss not only the potential rewards but also the practical realities of project timelines. Transparency builds trust. Clear communication reduces anxiety. And realistic expectations help buyers make better long-term decisions.</p>
+      <p style="margin-bottom: 1.25rem;">The best real estate investments are not only profitable investments. They are investments that allow buyers to move forward with confidence, clarity, and peace of mind.</p>
+    </div>
+  </dialog>
+
   <!-- Core JavaScript -->
   <script type="module" src="main.js"></script>
   
@@ -295,6 +314,21 @@
             post.style.display = 'block';
           } else {
             post.style.display = 'none';
+          }
+        });
+      });
+
+      // Make the entire blog card clickable to read column
+      posts.forEach(post => {
+        post.style.cursor = 'pointer';
+        post.addEventListener('click', (e) => {
+          const button = post.querySelector('button[commandfor]');
+          if (button) {
+            const targetId = button.getAttribute('commandfor');
+            const target = document.getElementById(targetId);
+            if (target && typeof target.showModal === 'function') {
+              target.showModal();
+            }
           }
         });
       });

@@ -44,6 +44,26 @@
       "price": "On Request",
       "image": "/images/project-indresham.png",
       "description": "A completely integrated and secured land development offering high-value returns and appreciation prospects."
+    },
+    {
+      "id": "project-5",
+      "title": "Villaggio - Hyderabad",
+      "category": "villas",
+      "location": "Mokila Sector, Hyderabad",
+      "config": "Farm Villas",
+      "price": "On Request",
+      "image": "/images/villaggio.png",
+      "description": "A premium nature-focused farm villa community designed for sustainable living, biophilic design, and peaceful getaways."
+    },
+    {
+      "id": "project-6",
+      "title": "Villaggio - Hyderabad",
+      "category": "plots",
+      "location": "Mokila Sector, Hyderabad",
+      "config": "Farmland Plots",
+      "price": "On Request",
+      "image": "/images/villaggio.png",
+      "description": "Sprawling 175-acre managed farmland plots and orchards emphasizing rustic luxury, lakeside lawns, and organic farming."
     }
   ],
   "villas_info": {
